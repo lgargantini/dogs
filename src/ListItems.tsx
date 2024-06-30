@@ -12,11 +12,9 @@ const ListItems = (props: ListProps) => {
     const listItems = list.map((item, index) => (
         <li
             key={index}
-            className={`${selectedItem === index ? 'selected' : ''}`}
+            className={`breed-item${selectedItem === index ? ' selected' : ''}`}
             onClick={() => handleClick(item)}
             ref={index === selectedItem ? refContainer : null}
-            style={{ backgroundColor: index === selectedItem ? "rgba(0,0,0,0.1)" : "" }}
-
         >
             {item.label}
         </li>
@@ -28,7 +26,7 @@ const ListItems = (props: ListProps) => {
 
 
     return (
-        <ul className="relative outline-none">
+        <ul className='breed-items-container'>
             {listItems}
         </ul>
     );

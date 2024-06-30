@@ -4,16 +4,17 @@ import './index.css';
 
 const Header = () => {
     return (
-        <header className="App-header">
-                <p>
-                    <span role="img" aria-label="heart">
-                        ❤️
-                    </span>
-                    <span role="img" aria-label="dog">
-                        🐶
-                    </span>
-                </p>
-            </header>
+        <header className="main-header">
+            <h1 className="header-title">Breeds</h1>
+            <p className='header-logo'>
+                <span role="img" aria-label="heart">
+                    ❤️
+                </span>
+                <span role="img" aria-label="dog">
+                    🐶
+                </span>
+            </p>
+        </header>
     );
 }
 

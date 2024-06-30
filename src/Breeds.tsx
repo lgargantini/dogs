@@ -65,7 +65,6 @@ export const Breeds = () => {
 
     return (
         <div>
-            <p>Breeds</p>
             <SearchBar list={breeds} selectedItem={breed} setSelectedItem={setBreed} resetSelectedItem={resetBreed} />
             {shouldShowBreed &&
                 <Breed breed={breed} />

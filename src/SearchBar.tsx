@@ -71,45 +71,49 @@ const SearchBar = ({ list, selectedItem, setSelectedItem, resetSelectedItem }: I
         }
     }
 
-    const divResult = useRef<HTMLDivElement>(null);
+    const Result = useRef<HTMLDivElement>(null);
     const inputContainer = useRef<HTMLInputElement>(null);
     const shouldShowResults = selectedItem === null;
 
     return (
-        <div>
-            <input
-                type="text"
-                onChange={(event) => {
-                    setSuggestion(event.currentTarget.value)
-                }}
-                onKeyDown={(event) => {
-                    //behaviors when input is focused
+        <>
+            <div className="search-bar-input-container">
+                <input
+                    type="text"
+                    onChange={(event) => {
+                        setSuggestion(event.currentTarget.value)
+                    }}
+                    onKeyDown={(event) => {
+                        //behaviors when input is focused
 
-                    //select current breed on Enter key
-                    if (event.code === 'Enter') {
-                        setSelectedItem(getBreedByIndex(filteredItems ? filteredItems : list, suggestionIndex !== -1 ? suggestionIndex : 0));
-                        setSuggestionIndex(-1);
-                    }
-                    //reset suggestion on Delete or Escape key
-                    if (event.code === 'Delete' || event.code === 'Escape') {
-                        setSuggestion(null);
-                        setSuggestionIndex(-1);
-                    }
-                    //navigate results using arrow keys
-                    if (event.code === 'ArrowDown') {
-                        setSuggestionIndex(0);
-                        divResult.current?.focus({ preventScroll: true });
-                    }
-                }}
-                placeholder="insert your famous breed"
-                value={suggestion ? suggestion : ""}
-                ref={inputContainer}
-            />
-            <button onClick={resetSelectedItem}>reset</button>
+                        //select current breed on Enter key
+                        if (event.code === 'Enter') {
+                            setSelectedItem(getBreedByIndex(filteredItems ? filteredItems : list, suggestionIndex !== -1 ? suggestionIndex : 0));
+                            setSuggestionIndex(-1);
+                        }
+                        //reset suggestion on Delete or Escape key
+                        if (event.code === 'Delete' || event.code === 'Escape') {
+                            setSuggestion(null);
+                            setSuggestionIndex(-1);
+                        }
+                        //navigate results using arrow keys
+                        if (event.code === 'ArrowDown') {
+                            setSuggestionIndex(0);
+                            Result.current?.focus({ preventScroll: true });
+                        }
+                    }}
+                    placeholder="insert breed"
+                    value={suggestion ? suggestion : ""}
+                    ref={inputContainer}
+                    className="search-bar"
+                />
+                <button onClick={resetSelectedItem}>Reset</button>
+            </div>
             {shouldShowResults &&
                 <div tabIndex={1}
-                    ref={divResult}
+                    ref={Result}
                     onKeyDown={handleOnKeyDownForList}
+                    className="search-results-container"
                 >
                     <ListBreeds
                         list={filteredItems ? filteredItems : list}
@@ -119,7 +123,7 @@ const SearchBar = ({ list, selectedItem, setSelectedItem, resetSelectedItem }: I
                     />
                 </div>
             }
-        </div>
+        </>
     )
 
 }

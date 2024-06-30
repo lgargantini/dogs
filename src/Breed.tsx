@@ -34,10 +34,9 @@ export const Breed = ({ breed }: IBreedComponent): JSX.Element => {
 
     return (
         <div>
-            <h3>DOGGO</h3>
-            <div className={"img-container"}>
+            <div className="img-container">
                 {doggos.map((src, i) => (
-                    <img key={i} src={src} alt="doggo" height={150} width={200} />
+                    <img key={i} src={src} alt="doggo" />
                 ))}
             </div>
         </div>
