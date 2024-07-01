@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.App > * {
+  flex: 1 1 auto;
 }
 
 .App-link {
@@ -9,9 +15,12 @@
 .img-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 5px;
 }
 
 .img-container img {
-  flex: 1 1 33.33333%;
+  width: 200px;
+  object-fit: cover;
+  flex: 1 1 33.33%;
 }

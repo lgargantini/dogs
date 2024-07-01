@@ -4,7 +4,7 @@ import './index.css';
 
 const Header = () => {
     return (
-        <header className="main-header">
+        <header className="main-header" data-testid="header">
             <h1 className="header-title">Breeds</h1>
             <p className='header-logo'>
                 <span role="img" aria-label="heart">

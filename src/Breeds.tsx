@@ -33,7 +33,9 @@ export const Breeds = () => {
 
     useEffect(() => {
         listBreedsFromAPI().
-            then((result) => result.json()).
+            then((result) => {
+                return result.json()
+            }).
             then(({ message }) => {
                 const breeds: IBreeds = [];
                 Object.entries(message).map(
@@ -54,6 +56,10 @@ export const Breeds = () => {
                 } else {
                     throw new Error("No breeds available");
                 }
+            })
+            .catch((error) => {
+                console.error(error);
+                setBreeds([]);
             });
     }, []);
 
@@ -64,7 +70,7 @@ export const Breeds = () => {
     const shouldShowBreed = breed !== null;
 
     return (
-        <div>
+        <div data-testid="breeds">
             <SearchBar list={breeds} selectedItem={breed} setSelectedItem={setBreed} resetSelectedItem={resetBreed} />
             {shouldShowBreed &&
                 <Breed breed={breed} />

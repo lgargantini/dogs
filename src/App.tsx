@@ -6,7 +6,6 @@ import Header from "./Header";
 function App() {
     return (
         <div className="App">
-            <img rel="icon" src="/public/favicon.ico" />
             <Header />
             <Breeds />
         </div>

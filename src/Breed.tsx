@@ -33,12 +33,13 @@ export const Breed = ({ breed }: IBreedComponent): JSX.Element => {
     }, [breed]);
 
     return (
-        <div>
-            <div className="img-container">
-                {doggos.map((src, i) => (
+        <>
+            <h2>{breed.label}</h2>
+            <div className="img-container" data-testid="breed">
+                {doggos.length > 0 ? doggos.map((src, i) => (
                     <img key={i} src={src} alt="doggo" />
-                ))}
+                )) : <p>No doggos found</p>}
             </div>
-        </div>
+        </>
     );
 };
