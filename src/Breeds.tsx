@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, useCallback } from "react";
 import { Breed } from "./Breed";
 import { IBreed, IBreeds, ISubBreed, listBreedsFromAPI } from "./lib/data";
 import SearchBar from "./SearchBar";
@@ -33,9 +33,7 @@ export const Breeds = () => {
 
     useEffect(() => {
         listBreedsFromAPI().
-            then((result) => {
-                return result.json()
-            }).
+            then((result) => result.json()).
             then(({ message }) => {
                 const breeds: IBreeds = [];
                 Object.entries(message).map(
@@ -72,9 +70,11 @@ export const Breeds = () => {
     return (
         <div data-testid="breeds">
             <SearchBar list={breeds} selectedItem={breed} setSelectedItem={setBreed} resetSelectedItem={resetBreed} />
-            {shouldShowBreed &&
-                <Breed breed={breed} />
-            }
+            <Suspense fallback={<div>Loading...</div>}>
+                {shouldShowBreed &&
+                    <Breed selectedBreed={breed} />
+                }
+            </Suspense>
         </div>
     );
 };

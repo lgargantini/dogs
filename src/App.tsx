@@ -1,13 +1,18 @@
-import React from "react";
+import React, { Suspense } from "react";
 import "./App.css";
 import { Breeds } from "./Breeds";
 import Header from "./Header";
+import { Logo } from "./Header/Logo";
 
 function App() {
     return (
         <div className="App">
             <Header />
-            <Breeds />
+            <Suspense fallback={
+                <Logo />
+            }>
+                <Breeds />
+            </Suspense>
         </div>
     );
 }

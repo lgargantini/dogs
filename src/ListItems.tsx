@@ -20,10 +20,13 @@ const ListItems = (props: ListProps) => {
         </li>
     ))
 
-    if (list.length === 0) {
-        return <p>No breeds available</p>
+    if (!listItems.length) {
+        return (<ul className="breed-items-container">
+            <li className='breed-item'>
+                No breeds found
+            </li>
+        </ul>)
     }
-
 
     return (
         <ul className='breed-items-container'>

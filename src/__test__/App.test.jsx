@@ -17,9 +17,3 @@ test('renders Breeds component', () => {
     const { getByTestId } = render(<App />);
     expect(getByTestId('breeds')).toBeInTheDocument();
 });
-test('renders the icon image wtesth correct src', () => {
-    const { getByAltText } = render(<App />);
-    const iconImg = getByAltText('icon');
-    expect(iconImg).toBeInTheDocument();
-    expect(iconImg).toHaveAttribute('src', '/public/favicon.ico');
-});

@@ -8,6 +8,19 @@
   flex: 1 1 auto;
 }
 
+@keyframes app-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: app-logo-spin infinite 20s linear;
+}
+
 .App-link {
   color: #61dafb;
 }
