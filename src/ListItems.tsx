@@ -1,4 +1,4 @@
-//generate reusable component to display list of dogs
+//generate reusable component to display list
 import React from 'react';
 import { IBreed, IBreeds } from './lib/data';
 export type ListProps = {
@@ -7,9 +7,9 @@ export type ListProps = {
     selectedItem: number
     refContainer: React.RefObject<HTMLLIElement>
 }
-const ListItems = (props: ListProps) => {
+const ListItems = (props: ListProps): JSX.Element => {
     const { list, handleClick, selectedItem, refContainer } = props;
-    const listItems = list.map((item, index) => (
+    const listItems = list.length ? list.map((item, index) => (
         <li
             key={index}
             className={`breed-item${selectedItem === index ? ' selected' : ''}`}
@@ -18,15 +18,9 @@ const ListItems = (props: ListProps) => {
         >
             {item.label}
         </li>
-    ))
-
-    if (!listItems.length) {
-        return (<ul className="breed-items-container">
-            <li className='breed-item'>
-                No breeds found
-            </li>
-        </ul>)
-    }
+    )) : (<li className='breed-item'>
+        No items found
+    </li>);
 
     return (
         <ul className='breed-items-container'>

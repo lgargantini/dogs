@@ -71,9 +71,14 @@ const SearchBar = ({ list, selectedItem, setSelectedItem, resetSelectedItem }: I
         }
     }
 
-    const Result = useRef<HTMLDivElement>(null);
+    const ResultsContainer = useRef<HTMLDivElement>(null);
     const inputContainer = useRef<HTMLInputElement>(null);
-    const shouldShowResults = selectedItem === null;
+    const shouldShowListResults = selectedItem === null;
+    const resetInput = () => {
+        setSuggestion(null);
+        setSuggestionIndex(-1);
+        resetSelectedItem();
+    }
 
     return (
         <>
@@ -99,7 +104,7 @@ const SearchBar = ({ list, selectedItem, setSelectedItem, resetSelectedItem }: I
                         //navigate results using arrow keys
                         if (event.code === 'ArrowDown') {
                             setSuggestionIndex(0);
-                            Result.current?.focus({ preventScroll: true });
+                            ResultsContainer.current?.focus({ preventScroll: true });
                         }
                     }}
                     placeholder="insert breed"
@@ -107,11 +112,11 @@ const SearchBar = ({ list, selectedItem, setSelectedItem, resetSelectedItem }: I
                     ref={inputContainer}
                     className="search-bar"
                 />
-                <button onClick={resetSelectedItem}>Reset</button>
+                <button onClick={resetInput}>Reset</button>
             </div>
-            {shouldShowResults &&
+            {shouldShowListResults &&
                 <div tabIndex={1}
-                    ref={Result}
+                    ref={ResultsContainer}
                     onKeyDown={handleOnKeyDownForList}
                     className="search-results-container"
                 >
