@@ -1,14 +1,25 @@
 import globals from "globals";
-import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
-import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
-
 
 export default [
-  {files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"]},
-  { languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } } },
-  {languageOptions: { globals: globals.browser }},
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
-  pluginReactConfig,
+  {
+    ignores: ["**/build/", "**/*.config.mjs", "**/dist/**", "**/node_modules/"],
+  },
+  {
+    files: ["src/**/*.{ts,jsx,tsx}"],
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+        globals: globals.browser,
+        parser: "@typescript-eslint/parser",
+        project: true,
+      },
+    },
+  },
+  ...tseslint.configs.recommendedTypeChecked,
 ];
