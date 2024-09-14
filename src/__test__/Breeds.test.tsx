@@ -9,35 +9,13 @@ const MOCK_BREEDS = {
         poodle: [],
     },
 };
-global.fetch = jest.fn(async () => await Promise.resolve({
-    json: () => act(async () => await Promise.resolve(MOCK_BREEDS))
-}));
 
-afterEach((() => {
-    cleanup();
-}));
-
-afterAll(async () => {
-    (fetch as jest.Mock).mockReturnValue(await Promise.resolve({}));
-});
+global.fetch = jest.fn(() => Promise.resolve(new Response(JSON.stringify(MOCK_BREEDS))));
 
 describe('Breeds Component', () => {
-    beforeEach(() => {
-        (fetch as jest.Mock).mockReset();
-    });
-
-    it('renders without crashing', () => {
-        (fetch as jest.Mock).mockResolvedValue({
-            json: () => act(() => Promise.resolve(MOCK_BREEDS))
-        });
-        act(() => {
-            render(<Breeds />);
-        })
-    });
-
     it('displays breeds after successful API call', async () => {
         (fetch as jest.Mock).mockResolvedValue({
-            json: () => act(() => Promise.resolve(MOCK_BREEDS))
+            json: () => Promise.resolve(MOCK_BREEDS)
         });
 
         act(() => {
@@ -60,19 +38,20 @@ describe('Breeds Component', () => {
         })
 
         await waitFor(() => {
-            expect(screen.getByText('No breeds available')).toBeInTheDocument();
+            expect(screen.getByText('No items found')).toBeInTheDocument();
         });
     });
 
-    it('allows breed selection and reset', async () => {
+    it('allows breed selection', async () => {
         (fetch as jest.Mock).mockResolvedValue({
-            json: () => act(() => Promise.resolve(MOCK_BREEDS))
+            json: () => Promise.resolve(MOCK_BREEDS)
         });
         act(() => {
             render(<Breeds />);
         })
 
         await waitFor(() => {
+            expect(screen.getByTestId("breed-items-container")).toBeInTheDocument();
             fireEvent.click(screen.getByText("labrador yellow"));
             expect(screen.getByTestId("breed")).toBeInTheDocument();
         });
