@@ -16,8 +16,6 @@ export default [
       parserOptions: {
         ecmaFeatures: { jsx: true },
         globals: globals.browser,
-        parser: "@typescript-eslint/parser",
-        project: true,
       },
     },
   },
