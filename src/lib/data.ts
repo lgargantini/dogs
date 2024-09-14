@@ -26,6 +26,29 @@ export const listImagesFromAPI = (breed: string, subBreed?: string): Promise<Res
     return fetch(new URL(`/api/breed/${buildPath(resource, DEFAULT_LIMIT)}`, URI_DOG_CEO));
 }
 
+export const getSubBreed = (breed: string, subBreed: string): ISubBreed => {
+    const label = subBreed ? `${breed} ${subBreed}` : breed;
+    const id = `${breed}-${subBreed}`;
+    return {
+        id: id,
+        label,
+        resource: {
+            breed,
+            subBreed
+        }
+    };
+};
+export const getBreed = (breed: string): IBreed => {
+    const id = breed;
+    return {
+        id: id,
+        label: breed,
+        resource: {
+            breed
+        }
+    };
+}
+
 export interface BreedsEntityFromAPI {
     [key: string]: string[];
 }

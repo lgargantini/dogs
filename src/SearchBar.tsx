@@ -43,7 +43,7 @@ const SearchBar = ({ list, selectedItem, setSelectedItem, resetSelectedItem }: I
         inputContainer.current?.focus();
     }
 
-    const handleOnKeyDownForList = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const handleOnKeyPressEvents = (event: React.KeyboardEvent<HTMLDivElement>) => {
         //navigate results using arrow keys
         let index = suggestionIndex;
         if (event.code === 'ArrowDown' || event.code === 'ArrowRight') {
@@ -67,7 +67,7 @@ const SearchBar = ({ list, selectedItem, setSelectedItem, resetSelectedItem }: I
             cleanSuggestionIndexAndInputFocus();
             //select the breed on Enter key
         } else if (event.code === 'Enter') {
-            setSelectedItem(getBreedByIndex(filteredItems ? filteredItems : list, suggestionIndex !== -1 ? suggestionIndex : 0));
+            setSelectedItem(getBreedByIndex(items, suggestionIndex !== -1 ? suggestionIndex : 0));
         }
     }
 
@@ -88,15 +88,14 @@ const SearchBar = ({ list, selectedItem, setSelectedItem, resetSelectedItem }: I
                     onChange={(event) => {
                         setSuggestion(event.currentTarget.value)
                     }}
+                    //behaviors when input is focused
                     onKeyDown={(event) => {
-                        //behaviors when input is focused
-
-                        //select current breed on Enter key
+                    //select current breed with Enter key press
                         if (event.code === 'Enter') {
-                            setSelectedItem(getBreedByIndex(filteredItems ? filteredItems : list, suggestionIndex !== -1 ? suggestionIndex : 0));
+                            setSelectedItem(getBreedByIndex(items, suggestionIndex !== -1 ? suggestionIndex : 0));
                             setSuggestionIndex(-1);
                         }
-                        //reset suggestion on Delete or Escape key
+                        //reset suggestion on Delete or Escape key press
                         if (event.code === 'Delete' || event.code === 'Escape') {
                             setSuggestion(null);
                             setSuggestionIndex(-1);
@@ -117,13 +116,13 @@ const SearchBar = ({ list, selectedItem, setSelectedItem, resetSelectedItem }: I
             {shouldShowListResults &&
                 <div tabIndex={1}
                     ref={ResultsContainer}
-                    onKeyDown={handleOnKeyDownForList}
+                    onKeyDown={handleOnKeyPressEvents}
                     className="search-results-container"
                 >
                     <ListBreeds
-                        list={filteredItems ? filteredItems : list}
+                        list={items}
                         handleClick={setSelectedItem}
-                        selectedItem={suggestionIndex}
+                        CurrentItem={suggestionIndex}
                         refContainer={refContainer}
                     />
                 </div>
