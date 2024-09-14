@@ -6,7 +6,7 @@ export default [
     ignores: ["**/build/", "**/*.config.mjs", "**/dist/**", "**/node_modules/"],
   },
   {
-    files: ["src/**/*.{ts,jsx,tsx}"],
+    files: ["src/**/*.{ts,jsx,tsx}, src/__tests__/**/*.{ts,jsx,tsx}"],
     settings: {
       react: {
         version: "detect",
