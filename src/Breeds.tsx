@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Breed } from "./Breed";
-import { getBreedInstance, getSubBreedInstance, IBreed, IBreeds, listBreedsFromAPI } from "./lib/data";
+import { getBreedInstance, getSubBreedInstance, listBreedsFromAPI } from "./lib/data";
+import { IBreed, IBreedResponse, IBreeds } from "./lib/types";
 import SearchBar from "./SearchBar";
-
-interface IBreedResponse {
-    message: {
-        [key: string]: string[];
-    };
-}
 
 export const Breeds = () => {
     const [breeds, setBreeds] = useState<IBreeds>([]);

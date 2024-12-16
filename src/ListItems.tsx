@@ -1,7 +1,7 @@
 //generate presentational component to display list
 import React from 'react';
-import { IBreed, IBreeds } from './lib/data';
 import { LABEL_ITEMS_NOT_FOUND } from './lib/constants';
+import { IBreed, IBreeds } from './lib/types';
 
 export type ListProps = {
     list: IBreeds,

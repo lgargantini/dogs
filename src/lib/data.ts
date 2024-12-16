@@ -1,3 +1,5 @@
+import { BreedsEntity, IBreed, ISubBreed } from "./types";
+
 export const URI_DOG_CEO = "https://dog.ceo/";
 export const DEFAULT_LIMIT = 9;
 
@@ -5,11 +7,7 @@ export const listBreedsFromAPI = async (): Promise<Response> => {
     return fetch(new URL("/api/breeds/list/all", URI_DOG_CEO))
 }
 
-export interface IBreed {
-    id: string;
-    label: string;
-    resource: BreedsEntity;
-}
+
 
 export const generateURLPath = ({ breed, subBreed = null, limit }): string => {
     let generateURL = new URL("/api/breed/", URI_DOG_CEO);
@@ -55,22 +53,4 @@ export const getBreedInstance = (breed: string): IBreed => {
             breed
         }
     };
-}
-
-export interface BreedsEntityFromAPI {
-    [key: string]: string[];
-}
-
-export interface BreedsEntity {
-    breed: string;
-    subBreed?: string;
-}
-
-export interface ISubBreed {
-    id: string;
-    label: string;
-    resource: BreedsEntity;
-}
-
-export interface IBreeds extends Array<IBreed | ISubBreed> {
 }

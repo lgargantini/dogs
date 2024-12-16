@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { IBreed, IBreeds } from "./lib/data";
+import { IBreed, IBreeds } from "./lib/types";
 import ListBreeds from "./ListItems";
 
 interface ISearchBar {

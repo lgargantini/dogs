@@ -1,23 +1,15 @@
 import React, { useState, useEffect, useCallback, memo } from "react";
-import { IBreed, listImagesFromAPI } from "./lib/data";
-
-export interface IBreedComponent {
-    selectedBreed?: IBreed;
-}
-
-interface IBreedResponse {
-    message: string[];
-    status: string;
-}
+import { listImagesFromAPI } from "./lib/data";
+import { IBreedComponent, IBreedsResponse } from "./lib/types";
 
 export const Breed = memo(function Br({ selectedBreed }: IBreedComponent): JSX.Element {
-    const [doggos, setDoggos] = useState([]);
+    const [doggos, setDoggos] = useState<IBreedsResponse["message"]>([]);
 
     const loadDoggos = useCallback(async () => {
         const { resource: { breed, subBreed } } = selectedBreed;
         await listImagesFromAPI(breed, subBreed)
             .then((response) => response.json())
-            .then((json: IBreedResponse) => {
+            .then((json: IBreedsResponse) => {
                 //identify json.message as an array of doggo images
                 if (json.status !== 'success') {
                     console.error('Error loading doggos');
