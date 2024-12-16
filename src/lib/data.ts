@@ -11,24 +11,32 @@ export interface IBreed {
     resource: BreedsEntity;
 }
 
+export const generateURLPath = ({ breed, subBreed = null, limit }): string => {
+    let generateURL = new URL("/api/breed/", URI_DOG_CEO);
+    generateURL.pathname += `${breed}${subBreed ? `/ ${subBreed}` : ''}/images/random/${limit}`;
+    return generateURL.toString();
+}
 
 export const buildPath = (resource: BreedsEntity, limit: number): string  => {
-        const { breed, subBreed } = resource;
-        if (!subBreed) {
-            return `${breed}/images/random/${limit}`;
-        }
-        const breedPath = `${breed}/${subBreed}`;
-        return `${breedPath}/images/random/${limit}`;
+    const { breed, subBreed } = resource;
+    if (!subBreed) {
+        return generateURLPath({ breed, limit });
+    }
+    return generateURLPath({ breed, subBreed, limit });
 }
 
 export const listImagesFromAPI = (breed: string, subBreed?: string): Promise<Response> => {
     const resource: BreedsEntity = { breed, subBreed };
-    return fetch(new URL(`/api/breed/${buildPath(resource, DEFAULT_LIMIT)}`, URI_DOG_CEO));
+    return fetch(buildPath(resource, DEFAULT_LIMIT));
 }
 
-export const getSubBreed = (breed: string, subBreed: string): ISubBreed => {
+export const generateInstanceId = (breed: string, subBreed?: string): string => {
+    return subBreed ? `${breed}-${subBreed}` : breed;
+}
+
+export const getSubBreedInstance = (breed: string, subBreed?: string): ISubBreed => {
     const label = subBreed ? `${breed} ${subBreed}` : breed;
-    const id = `${breed}-${subBreed}`;
+    const id = generateInstanceId(breed, subBreed);
     return {
         id: id,
         label,
@@ -38,8 +46,8 @@ export const getSubBreed = (breed: string, subBreed: string): ISubBreed => {
         }
     };
 };
-export const getBreed = (breed: string): IBreed => {
-    const id = breed;
+export const getBreedInstance = (breed: string): IBreed => {
+    const id = generateInstanceId(breed);
     return {
         id: id,
         label: breed,
@@ -64,4 +72,5 @@ export interface ISubBreed {
     resource: BreedsEntity;
 }
 
-export interface IBreeds extends Array<IBreed> { }
+export interface IBreeds extends Array<IBreed | ISubBreed> {
+}

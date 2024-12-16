@@ -20,8 +20,10 @@ export const Breed = memo(function Br({ selectedBreed }: IBreedComponent): JSX.E
             .then((json: IBreedResponse) => {
                 //identify json.message as an array of doggo images
                 if (json.status !== 'success') {
+                    console.error('Error loading doggos');
                     throw new Error('Error loading doggos');
                 }
+                // make sure response is an array of doggo images, then set the state
                 setDoggos(json.message)
             })
             .catch(() => setDoggos([]));
@@ -29,11 +31,11 @@ export const Breed = memo(function Br({ selectedBreed }: IBreedComponent): JSX.E
 
     useEffect(() => {
         if (selectedBreed) {
-            loadDoggos().then(() => {
-                console.log('Doggos loaded');
-            }).catch((error) => {
-                console.error(error);
-            });
+            loadDoggos()
+                .catch((error) => {
+                    console.error(error);
+                    setDoggos([]);
+                });
         }
     }, [selectedBreed, loadDoggos]);
 

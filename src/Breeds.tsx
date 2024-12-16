@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Breed } from "./Breed";
-import { getBreed, getSubBreed, IBreed, IBreeds, listBreedsFromAPI } from "./lib/data";
+import { getBreedInstance, getSubBreedInstance, IBreed, IBreeds, listBreedsFromAPI } from "./lib/data";
 import SearchBar from "./SearchBar";
 
 interface IBreedResponse {
@@ -30,28 +30,26 @@ export const Breeds = () => {
                             if (Array.isArray(subBreeds) && subBreeds.length > 0) {
                                 // iterate over subBreeds to get all available subBreeds
                                 subBreeds.map((subBreed) => (
-                                    breeds.push(getSubBreed(breed, subBreed))
+                                    breeds.push(getSubBreedInstance(breed, subBreed))
                                 ));
                             } else if (breed !== null) {
-                                breeds.push(getBreed(breed));
+                                breeds.push(getBreedInstance(breed));
                             }
                         },
                     );
                     if (breeds.length > 0) {
                         setBreeds(breeds);
-                    } else {
-                        throw new Error("No breeds available");
                     }
                 })
                 .catch((error) => {
-                    console.error(error);
-                    setError('Error loading breeds');
+                    console.error(error); //use logger as default
                     setBreeds([]);
                 });
         });
 
         loadBreeds()
             .catch((error) => {
+                setError('Error loading breeds');
                 console.error(error);
             });
     }, []);

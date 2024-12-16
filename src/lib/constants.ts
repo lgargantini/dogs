@@ -1,0 +1,1 @@
+export const LABEL_ITEMS_NOT_FOUND = 'No items to display';

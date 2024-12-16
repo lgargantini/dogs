@@ -38,7 +38,7 @@ describe('Breeds Component', () => {
         })
 
         await waitFor(() => {
-            expect(screen.getByText('No items found')).toBeInTheDocument();
+            expect(screen.getByText('No items to display')).toBeInTheDocument();
         });
     });
 

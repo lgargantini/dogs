@@ -1,6 +1,8 @@
 //generate presentational component to display list
 import React from 'react';
 import { IBreed, IBreeds } from './lib/data';
+import { LABEL_ITEMS_NOT_FOUND } from './lib/constants';
+
 export type ListProps = {
     list: IBreeds,
     handleClick: (arg: IBreed) => void
@@ -19,7 +21,7 @@ const ListItems = ({ list, handleClick, CurrentItem, refContainer }: ListProps):
         </li>
     )) : (
         <li className='breed-item'>
-            No items found
+                {`${LABEL_ITEMS_NOT_FOUND}`}
         </li>
     );
 
