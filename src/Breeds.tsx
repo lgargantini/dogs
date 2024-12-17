@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Breed } from "./Breed";
-import { getBreedInstance, getSubBreedInstance, listBreedsFromAPI } from "./lib/data";
+import { getBreedInstance, getSubBreedInstance, listBreeds } from "./lib/data";
 import { IBreed, IBreedResponse, IBreeds } from "./lib/types";
 import SearchBar from "./SearchBar";
 
@@ -9,11 +9,9 @@ export const Breeds = () => {
     const [breed, setBreed] = useState<IBreed | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-
-
     useEffect(() => {
         const loadBreeds = (async () => {
-            await listBreedsFromAPI().
+            await listBreeds().
                 then((result) => {
                     return result.json()
                 }).

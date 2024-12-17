@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useCallback, memo } from "react";
-import { listImagesFromAPI } from "./lib/data";
+import { getBreed } from "./lib/data";
 import { IBreedComponent, IBreedsResponse } from "./lib/types";
 
 export const Breed = memo(function Br({ selectedBreed }: IBreedComponent): JSX.Element {
     const [doggos, setDoggos] = useState<IBreedsResponse["message"]>([]);
 
-    const loadDoggos = useCallback(async () => {
+    const fetchBreed = useCallback(async () => {
         const { resource: { breed, subBreed } } = selectedBreed;
-        await listImagesFromAPI(breed, subBreed)
+        await getBreed(breed, subBreed)
             .then((response) => response.json())
             .then((json: IBreedsResponse) => {
                 //identify json.message as an array of doggo images
                 if (json.status !== 'success') {
-                    console.error('Error loading doggos');
-                    throw new Error('Error loading doggos');
+                    console.error('Error loading selected doggo', json);
+                    throw new Error('Error loading selected doggo');
                 }
                 // make sure response is an array of doggo images, then set the state
                 setDoggos(json.message)
@@ -23,13 +23,13 @@ export const Breed = memo(function Br({ selectedBreed }: IBreedComponent): JSX.E
 
     useEffect(() => {
         if (selectedBreed) {
-            loadDoggos()
+            fetchBreed()
                 .catch((error) => {
                     console.error(error);
                     setDoggos([]);
                 });
         }
-    }, [selectedBreed, loadDoggos]);
+    }, [selectedBreed, fetchBreed]);
 
     if (!selectedBreed) {
         return <></>;
