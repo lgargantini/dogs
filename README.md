@@ -1,22 +1,44 @@
-# Dogs Challenge
 
-Welcome to the Dogs Challenge!
+# Simple Search App for Funny Dogo Images
 
-We have a small React application that fetches a list of dog breeds and subbreeds.
-It renders them in a list, and lets the user click one to display some random pictures of the dog.
+This is a simple search app that fetches images of dogs from the Dog CEO API. The user can search for images of different breeds of dogs by typing the breed name in the search bar. The app will display the images of the breed searched for. The user can also click on the image to view a larger version of the image.
 
-## The Ask
+# Tech Stack
 
-Our PM isn't very happy with the UX of the app and has asked that you implement an autocomplete/typeahead so that it is easier for the users to find the dog breed they are looking for.
+- JS (ES6) - React App (Create React App)
+- CSS - Styled Components
+- Testing - Jest
+- Linting - ESLint
+- Formatting - Prettier
+- Husky - Pre-commit hooks
 
-- As a user, I want to be able to click on my choice from a list of suggestions that match what I've typed so far. [`DONE`]
-- As a user, I want to be able to hit 'Enter' to select the top suggestion. [`DONE`]
-- As a user, I want to be able to navigate the suggestions using arrow keys. [`DONE`]
+# First Steps
 
-- You've heard that we will need similar functionality in another part of the application, so this component should be reusable. [`DONE`]
+1. Clone the repository
+2. Install dependencies
+3. Run the app
 
-- She's also not pleased with the way images are rendered on the screen. They are all different sizes, and it would be much nicer if they uniformly arranged in a grid. [`DONE`]
+```bash
+git clone <repo-url>
+cd <repo-name>
+npm install
+npm start
+```
 
-## Resources
+# Running Tests
 
-- [the API](https://dog.ceo/dog-api/)
+```bash
+npm test
+```
+
+Check other scripts in `package.json` for more options.
+
+Reference
+- [Dog CEO API](https://dog.ceo/dog-api/)
+- [Create React App](https://create-react-app.dev/)
+- [Styled Components](https://styled-components.com/)
+- [Jest](https://jestjs.io/)
+- [ESLint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+
+[More information on CHALLENGE docs](CHALLENGE.md)
